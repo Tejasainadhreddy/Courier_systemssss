@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-5">
+        <div class="card shadow-lg border-0" style="border-radius: 20px;">
+            <div class="card-body p-5 text-center">
+                <i class="bi bi-person-circle display-1 mb-3" style="color: #667eea;"></i>
+                <h2 class="fw-bold mb-4">Customer Login</h2>
+                <form action="/customer-login" method="POST">
+                    <div class="mb-3 text-start">
+                        <label class="form-label">Email</label>
+                        <input type="email" name="email" class="form-control" required>
+                    </div>
+                    <div class="mb-4 text-start">
+                        <label class="form-label">Password</label>
+                        <input type="password" name="password" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-lg w-100 text-white fw-bold" style="background: linear-gradient(to right, #667eea, #764ba2);">Sign In</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

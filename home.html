@@ -1,0 +1,218 @@
+{% extends "layout.html" %}
+{% block content %}
+<style>
+    .hero-section { 
+        height: 100vh; 
+        background: linear-gradient(rgba(255,255,255,0.78), rgba(255,255,255,0.72)), 
+                    url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1920&q=80');
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        align-items: center;
+    }
+    
+    .hero-content {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    /* Hover highlight for ALL cards */
+    .trust-card, .step-card, .testimonial-card {
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .trust-card:hover,
+    .step-card:hover,
+    .testimonial-card:hover {
+        transform: translateY(-12px) scale(1.05);
+        box-shadow: 0 25px 50px -12px rgb(220 53 69 / 0.25) !important;
+        border-color: #dc3545 !important;
+    }
+
+    .tracking-card {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        padding: 35px 45px;
+        max-width: 820px;
+        margin: 50px auto 0;
+    }
+
+    .service-pill {
+        background-color: #dc3545;
+        color: white;
+        padding: 9px 26px;
+        border-radius: 50px;
+        font-size: 0.95rem;
+        font-weight: 600;
+        margin: 0 6px;
+    }
+
+    .check-item {
+        font-size: 1.05rem;
+    }
+
+    /* Clean step numbers - Light & Professional */
+    .step-number {
+        font-size: 3rem;
+        font-weight: 800;
+        color: #dc3545;
+        margin-bottom: 1.2rem;
+        opacity: 0.95;
+    }
+
+    .step-card {
+        border: 1px solid #f1f1f1;
+    }
+</style>
+
+<div class="hero-section">
+    <div class="container-fluid px-4">
+        <div class="hero-content text-center">
+            
+            <h1 class="display-4 fw-bold mb-4" style="color: #1e2937; line-height: 1.1;">
+                Your time-sensitive consignments are delivered<br>
+                the next day on a priority basis
+            </h1>
+
+            <div class="d-flex justify-content-center gap-5 flex-wrap mb-5">
+                <div class="d-flex align-items-center gap-2 check-item">
+                    <i class="bi bi-check-circle-fill text-success fs-3"></i>
+                    <div>Next-day by 10 AM</div>
+                </div>
+                <div class="d-flex align-items-center gap-2 check-item">
+                    <i class="bi bi-check-circle-fill text-success fs-3"></i>
+                    <div>Zero carbon delivery</div>
+                </div>
+                <div class="d-flex align-items-center gap-2 check-item">
+                    <i class="bi bi-check-circle-fill text-success fs-3"></i>
+                    <div>$10M insured per parcel</div>
+                </div>
+            </div>
+
+            <div class="tracking-card mx-auto">
+                <form action="/track-search" method="POST">
+                    <div class="mb-4">
+                        <label class="fw-bold text-uppercase small mb-2">CONSIGNMENT NUMBER</label>
+                        <input type="text" name="cons_no" class="form-control form-control-lg" 
+                                    placeholder="Enter tracking number" required>
+                    </div>
+                    <button type="submit" class="btn btn-danger w-100 py-3 fw-bold fs-5">
+                        SEARCH
+                    </button>
+                </form>
+            </div>
+
+            <div class="mt-4">
+                <span class="service-pill">Next-Day Express</span>
+                <span class="service-pill">Standard Ground</span>
+                <span class="service-pill">Eco-Friendly Delivery</span>
+                <span class="service-pill">Insured &amp; Secure</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Why Bay Area Trusts Team_7 -->
+<div class="container py-5">
+    <div class="text-center mb-5">
+        <span class="badge bg-danger px-3 py-2 mb-3">WHY CHOOSE US</span>
+        <h2 class="fw-bold display-5">Why Bay Area Trusts Team_7</h2>
+        <p class="lead text-muted">Built for speed, reliability, and the unique demands of Northern California.</p>
+    </div>
+    
+    <div class="row g-4 text-center">
+        <div class="col-md-4">
+            <div class="trust-card card h-100 border-0 shadow-sm p-5">
+                <i class="bi bi-lightning-charge-fill text-danger display-4 mb-4"></i>
+                <h4 class="fw-bold">Lightning-Fast Express</h4>
+                <p class="text-muted">Guaranteed next-day delivery by 10:00 AM across the entire Bay Area.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="trust-card card h-100 border-0 shadow-sm p-5" style="border-top: 6px solid #dc3545;">
+                <i class="bi bi-geo-alt-fill text-danger display-4 mb-4"></i>
+                <h4 class="fw-bold">Live GPS Tracking</h4>
+                <p class="text-muted">Watch your parcel move in real time with pinpoint accuracy.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="trust-card card h-100 border-0 shadow-sm p-5">
+                <i class="bi bi-shield-lock-fill text-danger display-4 mb-4"></i>
+                <h4 class="fw-bold">Bank-Grade Security</h4>
+                <p class="text-muted">$10 million insurance on every shipment + tamper-proof smart seals.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- How It Works - Light & Clean (No Black Background) -->
+<div class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold display-5">How It Works – 4 Simple Steps</h2>
+            <p class="lead text-muted">From pickup to delivery in under 24 hours</p>
+        </div>
+        <div class="row g-4 text-center">
+            <div class="col-md-3">
+                <div class="step-card card h-100 border-0 shadow-sm p-5 bg-white">
+                    <div class="step-number">01</div>
+                    <h5 class="fw-bold mb-3">Request Pickup</h5>
+                    <p class="text-muted">Book instantly from your dashboard or app in just 30 seconds</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="step-card card h-100 border-0 shadow-sm p-5 bg-white">
+                    <div class="step-number">02</div>
+                    <h5 class="fw-bold mb-3">We Collect</h5>
+                    <p class="text-muted">Same-day pickup from your registered address</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="step-card card h-100 border-0 shadow-sm p-5 bg-white">
+                    <div class="step-number">03</div>
+                    <h5 class="fw-bold mb-3">Real-Time Tracking</h5>
+                    <p class="text-muted">GPS-powered updates every step of the journey</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="step-card card h-100 border-0 shadow-sm p-5 bg-white">
+                    <div class="step-number">04</div>
+                    <h5 class="fw-bold mb-3">Delivered</h5>
+                    <p class="text-muted">Next-day by 10 AM with photo proof of delivery</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- What Our Customers Say -->
+<div class="container py-5">
+    <div class="text-center mb-5">
+        <h2 class="fw-bold display-5">What Our Customers Say</h2>
+    </div>
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="testimonial-card card h-100 border-0 shadow-sm p-4">
+                <i class="bi bi-quote fs-1 text-danger mb-3"></i>
+                <p class="fst-italic">"Fastest delivery I’ve ever seen in the Bay Area. My legal documents arrived before lunch!"</p>
+                <div class="mt-auto pt-3"><strong>Sarah Chen</strong><br><small class="text-muted">Founder @ BayTech Ventures</small></div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="testimonial-card card h-100 border-0 shadow-sm p-4">
+                <i class="bi bi-quote fs-1 text-danger mb-3"></i>
+                <p class="fst-italic">"The tracking is insanely accurate. I knew exactly when the driver was 2 blocks away. 10/10!"</p>
+                <div class="mt-auto pt-3"><strong>Dr. Michael Patel</strong><br><small class="text-muted">UCSF Medical Center</small></div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="testimonial-card card h-100 border-0 shadow-sm p-4">
+                <i class="bi bi-quote fs-1 text-danger mb-3"></i>
+                <p class="fst-italic">"Saved my law firm twice this month with same-day Express service. Truly professional team."</p>
+                <div class="mt-auto pt-3"><strong>Emily Rodriguez</strong><br><small class="text-muted">Partner @ Rodriguez &amp; Lee Law</small></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

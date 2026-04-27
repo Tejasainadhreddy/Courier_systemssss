@@ -1,0 +1,91 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container py-5 mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold">Team_7 <span class="text-danger">Master Ledger</span></h2>
+        <div>
+            <!-- Support Queries Button Added Here -->
+            <a href="/support-queries" class="btn btn-outline-primary me-2">📩 Support Queries</a>
+            
+            <a href="/admin-analytics" class="btn btn-outline-success me-2">📊 Analytics</a>
+            <a href="/add-courier" class="btn btn-danger fw-bold shadow px-4">+ New Shipment</a>
+        </div>
+    </div>
+
+    <!-- Rest of your file remains the same -->
+    <!-- Search -->
+    <form method="GET" class="mb-4">
+        <div class="input-group">
+            <input type="text" name="search" class="form-control" placeholder="Search by Tracking ID, Sender, Receiver..." value="{{ search }}">
+            <button class="btn btn-outline-dark" type="submit">Search</button>
+        </div>
+    </form>
+
+    <div class="d-flex gap-3 mb-4">
+        <a href="/branches" class="btn btn-outline-dark">📍 Branches</a>
+        <a href="/drivers" class="btn btn-outline-dark">🚚 Drivers</a>
+        <a href="/create-admin" class="btn btn-outline-dark">👤 Create Admin</a>
+    </div>
+
+    <!-- Stats and Table remain the same as you had -->
+    <div class="row text-center mb-5 g-4">
+        <div class="col-md-6">
+            <div class="card p-4 border-0 shadow-sm bg-white">
+                Registered Users<br>
+                <h3 class="fw-bold text-primary">{{ u_count }}</h3>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card p-4 border-0 shadow-sm bg-white">
+                Total Parcels<br>
+                <h3 class="fw-bold text-danger">{{ t_orders }}</h3>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ledger Table (unchanged) -->
+    <div class="card border-0 shadow-sm">
+        <table class="table table-hover align-middle mb-0">
+            <thead class="table-dark">
+                <tr>
+                    <th>Tracking ID</th>
+                    <th>Sender</th>
+                    <th>Receiver</th>
+                    <th>Cost</th>
+                    <th>Status</th>
+                    <th>Assigned Driver</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for c in couriers %}
+                <tr>
+                    <td class="fw-bold text-danger">{{ c.cons_no }}</td>
+                    <td>{{ c.ship_name }}</td>
+                    <td>{{ c.rev_name }}</td>
+                    <td class="fw-bold text-success">${{ "%.2f"|format(c.cost) }}</td>
+                    <td><span class="badge bg-light text-dark">{{ c.est_delivery }}</span></td>
+                    <td><span class="badge bg-info">{{ c.assigned_driver }}</span></td>
+                    <td>
+                        <div class="dropdown">
+                            <button class="btn btn-sm btn-dark dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                Actions
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{{ url_for('update_status') }}?cons_no={{ c.cons_no }}">Update Status</a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('assign_driver', cons_no=c.cons_no) }}">Assign Driver</a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('track_details', cons_no=c.cons_no) }}">Full Tracking</a></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="7" class="text-center py-4 text-muted">No shipments found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

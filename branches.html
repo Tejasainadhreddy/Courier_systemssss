@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container py-5 mt-5">
+    <h2 class="fw-bold mb-4">📍 Hubs & Branches</h2>
+
+    <!-- Add New Hub Form -->
+    <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body">
+            <form method="POST" class="row g-3">
+                <div class="col-md-4">
+                    <input type="text" name="branch_name" class="form-control" placeholder="Hub Name (e.g. Fremont Hub)" required>
+                </div>
+                <div class="col-md-4">
+                    <input type="text" name="location" class="form-control" placeholder="Location (e.g. Fremont, CA)" required>
+                </div>
+                <div class="col-md-3">
+                    <input type="text" name="manager" class="form-control" placeholder="Manager Name" required>
+                </div>
+                <div class="col-md-1">
+                    <button type="submit" class="btn btn-success w-100">Add Hub</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="card border-0 shadow-sm">
+        <table class="table table-hover mb-0">
+            <thead class="table-dark">
+                <tr>
+                    <th>Hub Name</th>
+                    <th>Location</th>
+                    <th>Manager</th>
+                    <th class="text-end">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if branches %}
+                {% for b in branches %}
+                <tr>
+                    <td class="fw-bold">{{ b.branch_name }}</td>
+                    <td>{{ b.location }}</td>
+                    <td>{{ b.manager }}</td>
+                    <td class="text-end">
+                        <a href="{{ url_for('delete_branch', branch_id=b.id) }}" 
+                           class="btn btn-sm btn-danger"
+                           onclick="return confirm('Delete this hub?')">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+                {% else %}
+                <tr><td colspan="4" class="text-center py-4 text-muted">No hubs yet. Add one above.</td></tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

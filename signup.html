@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-5">
+        <div class="card shadow-lg border-0" style="border-radius: 20px;">
+            <div class="card-body p-5">
+                <h2 class="fw-bold text-center mb-4" style="color: #764ba2;">Create Account</h2>
+                <form action="/signup" method="POST">
+                    <div class="mb-3">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" name="fullname" class="form-control" placeholder="John Doe" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" name="email" class="form-control" placeholder="name@example.com" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Password</label>
+                        <input type="password" name="password" class="form-control" placeholder="********" required>
+                    </div>
+                    <button type="submit" class="btn btn-lg w-100 text-white fw-bold" style="background: linear-gradient(to right, #667eea, #764ba2);">Sign Up</button>
+                </form>
+                <p class="text-center mt-4 text-muted">Already have an account? <a href="/customer-login">Login</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

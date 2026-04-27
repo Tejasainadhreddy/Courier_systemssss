@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container-fluid" style="background: #212529; min-height: 100vh; display: flex; align-items: center; padding-top: 80px; padding-bottom: 80px;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="card bg-white shadow-2xl p-5 border-0">
+                    <div class="text-center mb-5">
+                        <div class="bg-danger text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                            <i class="bi bi-person-plus-fill fs-3"></i>
+                        </div>
+                        <h2 class="fw-extrabold text-dark">Create Account</h2>
+                        <p class="text-muted small">Join the Team_7 Global Logistics Network</p>
+                    </div>
+                    
+                    <form method="POST" action="/register">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="small fw-bold text-muted mb-1 text-uppercase">Full Name</label>
+                                <input type="text" name="fullname" class="form-control form-control-lg bg-light border-0 py-3" placeholder="Sriram Kumar" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="small fw-bold text-muted mb-1 text-uppercase">Email Address</label>
+                                <input type="email" name="email" class="form-control form-control-lg bg-light border-0 py-3" placeholder="sriram@csueb.edu" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="small fw-bold text-muted mb-1 text-uppercase">Phone Number</label>
+                                <input type="text" name="phone" class="form-control form-control-lg bg-light border-0 py-3" placeholder="510-885-3000" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="small fw-bold text-muted mb-1 text-uppercase">Password</label>
+                                <input type="password" name="password" class="form-control form-control-lg bg-light border-0 py-3" placeholder="********" required>
+                            </div>
+                            <div class="col-12">
+                                <label class="small fw-bold text-muted mb-1 text-uppercase">Permanent Pickup Address</label>
+                                <textarea name="address" class="form-control bg-light border-0 py-3" rows="3" placeholder="25800 Carlos Bee Blvd, Hayward, CA" required></textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-5">
+                            <button class="btn btn-danger w-100 btn-lg fw-bold rounded-pill py-3 shadow">REGISTER ACCOUNT</button>
+                        </div>
+                    </form>
+                    
+                    <div class="text-center mt-4">
+                        <p class="small text-muted">Already have an account? <a href="/login" class="text-danger fw-bold text-decoration-none">Login here →</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

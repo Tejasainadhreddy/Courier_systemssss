@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container py-5 mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold">Driver Dashboard - {{ driver_name }}</h2>
+        <a href="/driver-logout" class="btn btn-outline-danger">Logout</a>
+    </div>
+
+    <div class="alert alert-info">
+        <strong>Welcome, {{ driver_name }}!</strong> Here are your assigned parcels.
+    </div>
+
+    {% if parcels %}
+    <div class="row">
+        {% for p in parcels %}
+        <div class="col-md-6 mb-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <h5 class="fw-bold text-danger">{{ p.cons_no }}</h5>
+                    <p><strong>From:</strong> {{ p.ship_name }}</p>
+                    <p><strong>To:</strong> {{ p.rev_name }} ({{ p.r_add }})</p>
+                    <p><strong>Status:</strong> <span class="badge bg-warning">{{ p.est_delivery }}</span></p>
+                    
+                    <button onclick="if(confirm('Mark this parcel as Delivered?')) window.location='/driver-mark-delivered/{{ p.cons_no }}'" 
+                            class="btn btn-success w-100 mt-3">
+                        ✅ Mark as Delivered
+                    </button>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="alert alert-warning text-center py-5">
+        <i class="bi bi-truck fs-1"></i>
+        <p class="mt-3">No parcels assigned to you yet.</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

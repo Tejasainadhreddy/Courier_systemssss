@@ -1,0 +1,93 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container py-5 mt-5">
+    <div class="row g-5">
+        <!-- Profile Sidebar -->
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm p-4 rounded-4 bg-white text-center">
+                <div class="bg-danger text-white rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                    <i class="bi bi-person-fill fs-1"></i>
+                </div>
+                <h4 class="fw-bold mb-1">{{ user.fullname }}</h4>
+                <p class="text-muted small">Active Member</p>
+                <hr>
+                
+                <form action="/update-profile" method="POST" class="text-start">
+                    <div class="mb-3">
+                        <label class="small fw-bold">Full Name</label>
+                        <input type="text" name="fullname" class="form-control bg-light border-0" value="{{ user.fullname }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="small fw-bold">Phone</label>
+                        <input type="text" name="phone" class="form-control bg-light border-0" value="{{ user.phone or '' }}" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="small fw-bold">Registered Address</label>
+                        <textarea name="address" class="form-control bg-light border-0" rows="2" required>{{ user.address or '' }}</textarea>
+                    </div>
+                    <button type="submit" class="btn btn-dark w-100 fw-bold rounded-pill shadow-sm py-2">Update Profile</button>
+                </form>
+
+                <a href="/change-password" class="btn btn-outline-dark w-100 mt-3 fw-bold">🔑 Change Password</a>
+            </div>
+        </div>
+
+        <!-- Shipments Section -->
+        <div class="col-md-8">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h3 class="fw-bold mb-0">My Shipments</h3>
+                <a href="/request-pickup" class="btn btn-danger btn-sm rounded-pill px-4 fw-bold shadow-sm py-2">
+                    <i class="bi bi-box-seam me-2"></i>Request New Pickup
+                </a>
+            </div>
+
+            {% for o in orders %}
+            <div class="card border-0 shadow-sm p-4 mb-4 rounded-4 bg-white">
+                <div class="d-flex justify-content-between mb-3">
+                    <h5 class="fw-bold text-danger mb-0">{{ o.cons_no }}</h5>
+                    <span class="badge bg-danger rounded-pill px-3 py-2">{{ o.priority }}</span>
+                </div>
+                
+                <div class="row small text-muted mb-3">
+                    <div class="col-6">
+                        <strong>To:</strong> {{ o.rev_name }}<br>
+                        <small>{{ o.rev_email }}</small><br>
+                        <small>{{ o.rev_phone }}</small>
+                    </div>
+                    <div class="col-6 text-end">
+                        <strong>Cost:</strong> <span class="fw-bold text-dark">${{ "%.2f"|format(o.cost) }}</span>
+                    </div>
+                </div>
+
+                <div class="progress mb-2" style="height: 8px;">
+                    <div class="progress-bar bg-success" 
+                         style="width: {{ '100' if 'Delivered' in o.est_delivery else '75' if 'Out for Delivery' in o.est_delivery else '50' if 'In Transit' in o.est_delivery else '25' }}%;"></div>
+                </div>
+                <div class="d-flex justify-content-between small text-muted">
+                    <span>Requested</span><span>In Transit</span><span>Delivered</span>
+                </div>
+
+                <div class="mt-4 d-flex gap-2">
+                    <a href="{{ url_for('track_details', cons_no=o.cons_no) }}" class="btn btn-sm btn-success flex-fill">Full Tracking</a>
+                    <a href="{{ url_for('receipt', cons_no=o.cons_no) }}" class="btn btn-sm btn-dark flex-fill">📄 Receipt</a>
+                    
+                    {% if o.can_cancel %}
+                    <a href="{{ url_for('cancel_order', cons_no=o.cons_no) }}" 
+                       class="btn btn-sm btn-outline-danger flex-fill"
+                       onclick="return confirm('Cancel this order? This cannot be undone.')">
+                       Cancel Order
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+            {% else %}
+            <div class="text-center py-5 bg-white rounded-5 shadow-sm">
+                <i class="bi bi-mailbox fs-1 text-muted"></i>
+                <p class="text-muted mt-2">No shipments found in your history.</p>
+                <a href="/request-pickup" class="text-danger fw-bold">Request your first pickup here</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold">📩 Support Queries</h2>
+        <a href="/admin_dashboard" class="btn btn-outline-dark">← Back to Dashboard</a>
+    </div>
+    
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>Date</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Subject</th>
+                    <th>Message</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for q in queries %}
+                <tr>
+                    <td>{{ q.date_submitted.strftime('%d %b %Y %H:%M') }}</td>
+                    <td class="fw-bold">{{ q.name }}</td>
+                    <td>{{ q.email }}</td>
+                    <td>{{ q.subject or 'General Inquiry' }}</td>
+                    <td style="max-width: 450px;">{{ q.message|truncate(120) }}</td>
+                    <td><span class="badge bg-{{ 'success' if q.status == 'Resolved' else 'warning' }}">{{ q.status }}</span></td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="6" class="text-center py-5 text-muted">No support queries submitted yet.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

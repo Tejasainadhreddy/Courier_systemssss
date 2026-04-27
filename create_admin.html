@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-4">
+        <div class="card shadow border-0 rounded-4">
+            <div class="bg-dark p-4 text-center text-white rounded-top-4">
+                <h3 class="fw-bold mb-0">Add Backup Admin</h3>
+                <p class="small text-warning mb-0">Grant Full System Access</p>
+            </div>
+            <div class="card-body p-4">
+                <form method="POST" action="/create-admin">
+                    <div class="mb-3">
+                        <label class="small fw-bold">Admin Username</label>
+                        <input type="text" name="username" class="form-control" placeholder="e.g. backup_admin" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="small fw-bold">Temp Password</label>
+                        <input type="password" name="password" class="form-control" placeholder="********" required>
+                    </div>
+                    <button class="btn btn-dark w-100 fw-bold py-2 mb-3 shadow-sm">Authorize New Admin</button>
+                    <div class="text-center">
+                        <a href="/admin_dashboard" class="small text-muted text-decoration-none">Cancel & Return</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

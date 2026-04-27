@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container py-5 mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card border-0 shadow-lg p-5 rounded-5 bg-white">
+                <h3 class="fw-bold text-center text-danger mb-4">Assign Driver to Parcel</h3>
+                <p class="text-center mb-4">
+                    <strong>Tracking ID:</strong> {{ courier.cons_no }}<br>
+                    <strong>Route:</strong> {{ courier.ship_name }} → {{ courier.rev_name }}
+                </p>
+                <form method="POST">
+                    <div class="mb-3">
+                        <label class="small fw-bold">Select Available Driver</label>
+                        <select name="driver_id" class="form-select" required>
+                            <option value="">-- Choose Driver --</option>
+                            {% for d in drivers %}
+                            <option value="{{ d.id }}">{{ d.driver_name }} — {{ d.vehicle }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-success w-100 fw-bold py-3 rounded-pill">ASSIGN DRIVER NOW</button>
+                </form>
+                <a href="/admin_dashboard" class="btn btn-link text-muted w-100 mt-3">← Back to Ledger</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

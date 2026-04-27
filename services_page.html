@@ -1,0 +1,78 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<!-- Hero Section with Your Chosen Image -->
+<div class="container-fluid py-5" 
+     style="background: linear-gradient(rgba(0,0,0,0.50), rgba(0,0,0,0.50)), 
+            url('https://plus.unsplash.com/premium_photo-1661306497754-2ce8c0d42d3c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); 
+            background-size: cover; 
+            background-position: center; 
+            min-height: 65vh; 
+            color: white; 
+            display: flex; 
+            align-items: center;">
+    
+    <div class="container text-center">
+        <h1 class="display-3 fw-bold mb-3">Ready to Send a Parcel?</h1>
+        <p class="lead mb-4">Fast, reliable pickup from your doorstep. Get started in seconds.</p>
+        
+        {% if session.get('user') %}
+            <a href="/request-pickup" 
+               class="btn btn-danger btn-lg px-5 py-3 rounded-pill fw-bold shadow-lg">
+                <i class="bi bi-box-seam me-2"></i> Request Pickup Now
+            </a>
+        {% else %}
+            <a href="/login?next=/request-pickup" 
+               class="btn btn-danger btn-lg px-5 py-3 rounded-pill fw-bold shadow-lg">
+                <i class="bi bi-box-seam me-2"></i> Request Pickup Now
+            </a>
+        {% endif %}
+        
+        <p class="mt-4 text-white-50 small">Takes less than 60 seconds • Available 24/7</p>
+    </div>
+</div>
+
+<!-- Services Tiers Section -->
+<div class="container py-5">
+    <div class="text-center mb-5">
+        <h2 class="display-4 fw-bold">Our Logistics Services</h2>
+        <p class="lead text-muted">Choose the perfect delivery option for your needs</p>
+    </div>
+
+    <div class="row g-4 justify-content-center">
+        <div class="col-lg-4 col-md-6">
+            <div class="card h-100 border-0 shadow-lg p-4 text-center bg-white text-dark hover-scale">
+                <i class="bi bi-lightning-fill text-danger display-4 mb-3"></i>
+                <h4 class="fw-bold">Priority Express</h4>
+                <p class="text-muted">Guaranteed next-day delivery by 10:00 AM. Ideal for urgent documents and time-sensitive items.</p>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+            <div class="card h-100 border-0 shadow-lg p-4 text-center bg-white text-dark hover-scale" style="border-top: 6px solid #dc3545;">
+                <i class="bi bi-truck text-danger display-4 mb-3"></i>
+                <h4 class="fw-bold">Standard Ground</h4>
+                <p class="text-muted">Reliable 2-3 business day shipping. Best balance of speed and cost.</p>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+            <div class="card h-100 border-0 shadow-lg p-4 text-center bg-white text-dark hover-scale">
+                <i class="bi bi-box-seam text-danger display-4 mb-3"></i>
+                <h4 class="fw-bold">Business Cargo</h4>
+                <p class="text-muted">Bulk shipments and warehousing solutions for businesses and enterprises.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .hover-scale { 
+        transition: all 0.3s ease; 
+    }
+    .hover-scale:hover { 
+        transform: scale(1.05); 
+        box-shadow: 0 15px 30px rgba(0,0,0,0.15) !important; 
+    }
+</style>
+{% endblock %}

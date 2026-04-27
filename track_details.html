@@ -1,0 +1,104 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container py-5 mt-5">
+    <div class="card border-0 shadow-lg mx-auto" style="max-width: 900px;">
+        <div class="card-header bg-danger text-white py-4 text-center">
+            <h3 class="mb-0">Tracking Details</h3>
+            <h4 class="fw-bold mb-0">{{ courier.cons_no }}</h4>
+        </div>
+
+        <div class="card-body p-5">
+            <!-- Sender & Receiver Info -->
+            <div class="row g-5 mb-5">
+                <!-- Sender -->
+                <div class="col-md-6">
+                    <div class="border-start border-4 border-danger ps-4">
+                        <h5 class="fw-bold text-danger mb-3">FROM (Sender)</h5>
+                        <p class="mb-1"><strong>{{ courier.ship_name }}</strong></p>
+                        <p class="small text-muted mb-1">{{ courier.ship_email }}</p>
+                        <p class="small text-muted mb-1">{{ courier.ship_phone }}</p>
+                        <p class="small text-muted">{{ courier.ship_full_address }}</p>
+                    </div>
+                </div>
+
+                <!-- Receiver -->
+                <div class="col-md-6">
+                    <div class="border-start border-4 border-success ps-4">
+                        <h5 class="fw-bold text-success mb-3">TO (Receiver)</h5>
+                        <p class="mb-1"><strong>{{ courier.rev_name }}</strong></p>
+                        <p class="small text-muted mb-1">{{ courier.rev_email }}</p>
+                        <p class="small text-muted mb-1">{{ courier.rev_phone }}</p>
+                        <p class="small text-muted">{{ courier.rev_full_address }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Special Instructions & Message -->
+            <div class="row g-4 mb-5">
+                <div class="col-md-6">
+                    <div class="bg-light p-4 rounded-4">
+                        <h6 class="fw-bold text-danger mb-2">Special Instructions</h6>
+                        <p class="text-muted mb-0">
+                            {{ courier.special_instructions or 'No special instructions provided.' }}
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="bg-light p-4 rounded-4">
+                        <h6 class="fw-bold text-success mb-2">Message on the Courier</h6>
+                        <p class="text-muted mb-0">
+                            {{ courier.message_on_courier or 'No message provided.' }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Package Details -->
+            <div class="row mb-5">
+                <div class="col-md-4">
+                    <strong>Weight</strong><br>
+                    <span class="fs-5 fw-bold">{{ courier.weight }} kg</span>
+                </div>
+                <div class="col-md-4">
+                    <strong>Package Type</strong><br>
+                    <span class="fs-5 fw-bold">{{ courier.p_type }}</span>
+                </div>
+                <div class="col-md-4">
+                    <strong>Priority</strong><br>
+                    <span class="fs-5 fw-bold text-danger">{{ courier.priority }}</span>
+                </div>
+            </div>
+
+            <!-- Current Status -->
+            <div class="alert alert-info text-center py-3 mb-5">
+                <strong>Current Status:</strong> 
+                <span class="fw-bold fs-5">{{ courier.est_delivery }}</span>
+            </div>
+
+            <!-- Full Tracking History -->
+            <h5 class="fw-bold mb-3">Tracking History</h5>
+            <div class="list-group">
+                {% for track in tracks %}
+                <div class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                        <strong>{{ track.status }}</strong><br>
+                        <small class="text-muted">{{ track.update_time.strftime('%d %b %Y, %I:%M %p') }}</small>
+                    </div>
+                    <div class="text-end">
+                        <span class="badge bg-secondary">{{ track.current_city }}</span>
+                        {% if track.comments %}
+                        <br><small class="text-muted">{{ track.comments }}</small>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="text-center mt-5">
+                <a href="{{ url_for('user_dashboard') if session.get('role') == 'user' else url_for('admin_dashboard') }}" 
+                   class="btn btn-outline-dark px-5 rounded-pill">Back to Dashboard</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
